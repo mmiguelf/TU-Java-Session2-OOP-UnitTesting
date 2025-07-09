@@ -1,5 +1,33 @@
 package org.bankAccountSystem.model;
 
-class SavingsAccountTest {
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+class SavingsAccountTest {
+    private Account account;
+    private double interestRate = 0.04;
+    private double delta = 0.01;
+
+    @BeforeEach
+    void setup(){
+        account = new SavingsAccount(101, "testName", 1000d);
+    }
+
+    @Test
+    @DisplayName("calculateCorrectInterest")
+    void shouldCalculateCorrectInterest(){
+        double expected = account.balance + (account.balance * interestRate);
+        account.computeInterest();
+        double actual = account.balance;
+        assertEquals(expected, actual, delta);
+    }
+
+    @Test
+    @DisplayName("validateSavingsAccountType")
+    void shouldValidateSavingsAccountType(){
+        assertEquals("savings", account.accountType);
+    }
 }

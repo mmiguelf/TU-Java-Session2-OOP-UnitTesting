@@ -1,8 +1,9 @@
 package org.bankAccountSystem.model;
 
 public class SavingsAccount extends Account{
-    public SavingsAccount(String accountType, int accountNumber, String holderName, double initialDeposit){
-        super(accountType, accountNumber, holderName, initialDeposit);
+    public SavingsAccount(int accountNumber, String holderName, double initialDeposit){
+        super(accountNumber, holderName, initialDeposit);
+        this.accountType = "savings";
         this.interestRate = 0.04;
         System.out.println("Account created successfuly!");
     }

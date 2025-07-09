@@ -1,9 +1,10 @@
 package org.bankAccountSystem.model;
 
 public class CheckingAccount extends Account{
-    public CheckingAccount(String accountType, int accountNumber, String holderName, double initialDeposit){
-        super(accountType, accountNumber, holderName, initialDeposit);
-        this.interestRate = 0.04;
+    public CheckingAccount(int accountNumber, String holderName, double initialDeposit){
+        super(accountNumber, holderName, initialDeposit);
+        this.accountType = "checking";
+        this.interestRate = 0.01;
         System.out.println("Account created successfuly!");
     }
 

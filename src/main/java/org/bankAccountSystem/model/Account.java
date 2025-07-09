@@ -7,8 +7,7 @@ public abstract class Account {
     double balance;
     double interestRate;
 
-    public Account (String accountType, int accountNumber, String holderName, double initalDeposit) {
-        this.accountType = accountType;
+    public Account (int accountNumber, String holderName, double initalDeposit) {
         this.accountNumber = accountNumber;
         this.holderName = holderName;
         if (initalDeposit > 0d) {
@@ -32,13 +31,17 @@ public abstract class Account {
     }
 
     public void withdraw(double amount){
-        if (amount < balance) {
-            balance -= amount;
-            String formattedAmount = String.format("%.2f", amount);
-            String formattedBalance = String.format("%.2f", balance);
-            System.out.println("Withdrew " +formattedAmount+ ". New balance: " +formattedBalance+".");
+        if (amount > 0d) {
+            if (amount < balance) {
+                balance -= amount;
+                String formattedAmount = String.format("%.2f", amount);
+                String formattedBalance = String.format("%.2f", balance);
+                System.out.println("Withdrew " + formattedAmount + ". New balance: " + formattedBalance + ".");
+            } else {
+                System.out.println("Insufficient funds.");
+            }
         } else {
-            System.out.println("Insufficient funds.");
+            System.out.println("Withdraw cannot be negative.");
         }
     }
 
@@ -53,9 +56,9 @@ public abstract class Account {
 
     public static Account createAccount(String accountType, int accountNumber, String holderName, double initalDeposit) {
         if (accountType.equalsIgnoreCase("savings")) {
-            return new SavingsAccount(accountType, accountNumber, holderName, initalDeposit);
+            return new SavingsAccount(accountNumber, holderName, initalDeposit);
         } else if (accountType.equalsIgnoreCase("checking")) {
-            return new CheckingAccount(accountType, accountNumber, holderName, initalDeposit);
+            return new CheckingAccount(accountNumber, holderName, initalDeposit);
         } else {
             System.out.println("Invalid account type.");
         }
