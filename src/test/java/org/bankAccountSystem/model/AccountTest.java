@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
     private Account account;
@@ -100,9 +99,12 @@ class AccountTest {
         assertEquals(initialDeposit, actual, delta);
     }
 
-//    @Test
-//    @DisplayName("validateDisplayAccount")
-//    void shouldValidateDisplayAccount(){
-//        System.setOut(new PrintStream(outputStream));
-//    }
+    @Test
+    @DisplayName("validateDisplayAccount")
+    void shouldValidateDisplayAccount(){
+        System.setOut(new PrintStream(outputStream));
+        account.displayAccount();
+        String expected = "--- Account Information ---";
+        assertTrue(outputStream.toString().contains(expected));
+    }
 }
