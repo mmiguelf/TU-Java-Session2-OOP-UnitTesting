@@ -1,0 +1,63 @@
+package org.bankAccountSystem.model;
+
+public abstract class Account {
+    String accountType;
+    int accountNumber;
+    String holderName;
+    double balance;
+    double interestRate;
+
+    public Account (String accountType, int accountNumber, String holderName, double initalDeposit) {
+        this.accountType = accountType;
+        this.accountNumber = accountNumber;
+        this.holderName = holderName;
+        if (initalDeposit > 0d) {
+            this.balance = initalDeposit;
+        } else {
+            throw new IllegalArgumentException("Deposit cannot be negative.");
+        }
+    }
+
+    public abstract void computeInterest();
+
+    public void deposit(double amount){
+        if (amount > 0d) {
+            balance += amount;
+            String formattedAmount = String.format("%.2f", amount);
+            String formattedBalance = String.format("%.2f", balance);
+            System.out.println("Deposited " +formattedAmount+ ". New balance: " +formattedBalance+".");
+        } else {
+            throw new IllegalArgumentException("Deposit cannot be negative.");
+        }
+    }
+
+    public void withdraw(double amount){
+        if (amount < balance) {
+            balance -= amount;
+            String formattedAmount = String.format("%.2f", amount);
+            String formattedBalance = String.format("%.2f", balance);
+            System.out.println("Withdrew " +formattedAmount+ ". New balance: " +formattedBalance+".");
+        } else {
+            System.out.println("Insufficient funds.");
+        }
+    }
+
+    public void displayAccount() {
+        System.out.println("--- Account Information ---");
+        System.out.println("Account Number: "+accountNumber);
+        System.out.println("Account Holder: "+holderName);
+        System.out.println("Account Type: "+accountType);
+        String formattedBalance = String.format("%.2f", balance);
+        System.out.println("Balance: "+formattedBalance);
+    }
+
+    public static Account createAccount(String accountType, int accountNumber, String holderName, double initalDeposit) {
+        if (accountType.equalsIgnoreCase("savings")) {
+            return new SavingsAccount(accountType, accountNumber, holderName, initalDeposit);
+        } else if (accountType.equalsIgnoreCase("checking")) {
+            return new CheckingAccount(accountType, accountNumber, holderName, initalDeposit);
+        } else {
+            throw new IllegalArgumentException("Invalid account type.");
+        }
+    }
+}
