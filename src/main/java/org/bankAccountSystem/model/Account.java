@@ -13,7 +13,7 @@ public abstract class Account {
         if (initalDeposit > 0d) {
             this.balance = initalDeposit;
         } else {
-            System.out.println("Deposit cannot be negative.");
+            throw new IllegalArgumentException("Initial deposit cannot be negative");
         }
     }
 
@@ -55,12 +55,16 @@ public abstract class Account {
     }
 
     public static Account createAccount(String accountType, int accountNumber, String holderName, double initalDeposit) {
-        if (accountType.equalsIgnoreCase("savings")) {
-            return new SavingsAccount(accountNumber, holderName, initalDeposit);
-        } else if (accountType.equalsIgnoreCase("checking")) {
-            return new CheckingAccount(accountNumber, holderName, initalDeposit);
+        if (initalDeposit > 0d) {
+            if (accountType.equalsIgnoreCase("savings")) {
+                return new SavingsAccount(accountNumber, holderName, initalDeposit);
+            } else if (accountType.equalsIgnoreCase("checking")) {
+                return new CheckingAccount(accountNumber, holderName, initalDeposit);
+            } else {
+                System.out.println("Invalid account type.");
+            }
         } else {
-            System.out.println("Invalid account type.");
+            System.out.println("Deposit cannot be negative.");
         }
         return null;
     }

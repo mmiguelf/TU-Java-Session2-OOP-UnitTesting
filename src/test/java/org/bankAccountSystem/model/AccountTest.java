@@ -4,6 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -14,6 +17,9 @@ class AccountTest {
     private String holderName = "testName";
     private double initialDeposit = 1000d;
     private double delta = 0.01;
+
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
 
     @BeforeEach
     void setup(){
@@ -57,6 +63,16 @@ class AccountTest {
     }
 
     @Test
+    @DisplayName("validateInitialDepositInvalidAmount")
+    void shouldValidateInitialDepositInvalidAmount(){
+        initialDeposit = -500;
+        Account dudAccount = null;
+        dudAccount = account.createAccount(accountType, accountNumber, holderName, initialDeposit);
+        assertNull(dudAccount);
+    }
+
+
+    @Test
     @DisplayName("validateWithdrawAccuracy")
     void shouldValdiateWithdrawAccuracy(){
         double withdrawAmount = 200;
@@ -86,7 +102,7 @@ class AccountTest {
 
 //    @Test
 //    @DisplayName("validateDisplayAccount")
-//    void shouldValdiateDisplayAccount(){
-//        assert;
+//    void shouldValidateDisplayAccount(){
+//        System.setOut(new PrintStream(outputStream));
 //    }
 }
