@@ -8,12 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CheckingAccountTest {
     private Account account;
+    private String accountType = "checking";
     private double interestRate = 0.01;
     private double delta = 0.01;
 
     @BeforeEach
     void setup(){
-        account = new CheckingAccount(101, "testName", 1000d);
+        account = account.createAccount(accountType ,101, "testName", 1000d);
     }
 
     @Test

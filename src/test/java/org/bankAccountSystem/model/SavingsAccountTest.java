@@ -8,12 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SavingsAccountTest {
     private Account account;
+    private String accountType = "savings";
     private double interestRate = 0.04;
     private double delta = 0.01;
 
     @BeforeEach
     void setup(){
-        account = new SavingsAccount(101, "testName", 1000d);
+        account = account.createAccount(accountType ,101, "testName", 1000d);
     }
 
     @Test
