@@ -42,7 +42,9 @@ public class Main {
                     double initalDeposit = scan.nextDouble();
 
                     user = Account.createAccount(accountType, accountNumber, holderName, initalDeposit);
-                    accounts.add(user);
+                    if (user != null){
+                        accounts.add(user);
+                    }
                     break;
                 case 2: //Deposit
                     if (user != null){
